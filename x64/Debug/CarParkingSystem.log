@@ -1,2 +1,5 @@
-﻿  mainProcess.cpp
+﻿  zeYuLin.cpp
+D:\code\C++\CarParkingSystem\Customer.h(24,18): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+D:\code\C++\CarParkingSystem\zeYuLin.cpp(52): warning C4715: 'typeToString': not all control paths return a value
+D:\code\C++\CarParkingSystem\zeYuLin.cpp(33): warning C4715: 'stringToType': not all control paths return a value
   CarParkingSystem.vcxproj -> D:\code\C++\CarParkingSystem\x64\Debug\CarParkingSystem.exe

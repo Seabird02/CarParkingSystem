@@ -1,0 +1,1 @@
+after deleted a customer successfully, the wrong message "Customer not found." is printed out.

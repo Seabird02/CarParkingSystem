@@ -29,5 +29,8 @@
     <ClCompile Include="mainProcess.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="zeYuLin.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

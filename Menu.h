@@ -24,18 +24,19 @@ public:
 			cout << " * 3: quit the program   *" << endl;
 			cout << " *************************" << endl;
 			cout << " Please input a number to set your role: ";
-			getline(cin, str);
+			cin.clear();
+			cin >> str;
 			try
 			{
 				switch (stoi(str)) {
 				case 1:
 					cout << "Please enter the password: ";
-					getline(cin, inputPass);
+					cin>> inputPass;
 
 					// check if the entered password is correct
 					if (inputPass != passWord)
 					{
-						cout << "Wrong password!";
+						cout << "Wrong password!\n";
 						break;
 					}
 					else
@@ -53,7 +54,7 @@ public:
 			}
 			catch (const std::exception&)
 			{
-				cout << "exception happened!\n";
+				cout << "mainMenu() exception happened!\n";
 				return;
 			}
 		}
@@ -61,7 +62,7 @@ public:
 
 	void adminMenu()
 	{
-		string inputPass;
+		
 			while (true)
 			{
 				cout << "Which one do you want to operate:\n";
@@ -71,8 +72,9 @@ public:
 				cout << "4. Move to parent menu\n";
 				cout << "Please enter the number to run the program: ";
 				string select;
-				getline(cin, select);
-				string newPass1, newPass2;
+				cin.clear();
+				cin >> select;
+				string newPass1, newPass2;string inputPass;
 				try
 				{
 					// call the appropriate function based on user input
@@ -87,28 +89,29 @@ public:
 					case 3:
 
 						cout << "Please enter the old password to change the password: ";
-						getline(cin, inputPass);
+						cin.clear();
+						cin>>inputPass;
 
 						// check if the old password is correct
 						if (inputPass != passWord)
 						{
-							cout << "Wrong password!";
+							cout << "Wrong password!\n";
 							break;
 						}
 
 						// prompt the user to input the new password twice and verify the input
 						
 						cout << "Please enter the new password: ";
-						getline(cin, newPass1);
+						cin>> newPass1;
 						cout << "Please enter the new password again: ";
-						getline(cin, newPass2);
+						cin>>newPass2;
 
 						if (newPass1 != newPass2)
 						{
 							for (int i = 1; i <= 2; i++)
 							{
 								cout << "Passwords do not match. Please try again (" << i << "/2): ";
-								getline(cin, newPass2);
+								cin>> newPass2;
 								if (newPass1 == newPass2)
 								{
 									cout << "New password set successfully.\n";
@@ -134,7 +137,7 @@ public:
 
 				catch (const std::exception&)
 				{
-					cout << "exception happened!\n";
+					cout << "adminMenu() exception happened!\n";
 					return;
 				}
 			}
@@ -195,7 +198,7 @@ public:
 		}
 		catch (const std::exception&)
 		{
-			cout << "exception happened!\n";
+			cout << "spotOpMenu() exception happened!\n";
 			return;
 		}
 		
@@ -209,22 +212,27 @@ public:
 		cout << "5.move to parent menu\n";
 		cout << "input number to run the program:";
 		string select;
-		getline(cin, select);
+		cin.clear();
+		cin>>select;
 		try
 		{
 			switch (stoi(select))
 			{
 			case 1:
 				cout << "browse customer information here\n";
+				browseCustomers();
 				break;
 			case 2:
 				cout << "add customer here\n";
+				addCustomer();
 				break;
 			case 3:
 				cout << "modify customer here\n";
+				modifyCustomer();
 				break;
 			case 4:
 				cout << "delete the information of a specific customer\n";
+				deleteCustomer();
 				break;
 			case 5:
 				return;
@@ -235,7 +243,7 @@ public:
 		}
 		catch (const std::exception&)
 		{
-			cout << "exception happened!\n";
+			cout << "customerOpMenu() exception happened!\n";
 			return;
 		}
 
@@ -249,19 +257,42 @@ public:
 		cout << "4.move to parent menu\n";
 		cout << "input number to run the program:";
 		string select;
-		getline(cin, select);
+		string license_number;
+		bool isExist = false;
+		cin.clear();
+		cin>>select;
 		try
 		{
 			switch (stoi(select))
 			{
 			case 1:
-				cout << "browse information of vacant lots or payment";
+				cout << "browse information of vacant lots or payment\n";
+				cout << "input your license number:";
+				cin.clear();
+				cin >> license_number;
+				for (Customer &customer:customerList)
+				{
+					if (customer.getLicenseNumber()==license_number)
+					{
+						isExist = true;
+					}
+				}
+				if (!isExist)
+				{
+					cout << "browse spot informaiton here";
+				}
+				//isExistis==true
+				else {
+					browseSelfInformation(license_number);
+				}
 				break;
 			case 2:
-				cout << "check-in here";
+				cout << "check-in here\n";
+				check_in();
 				break;
 			case 3:
-				cout << "check-out here";
+				cout << "check-out here\n";
+				check_out();
 				break;
 			case 4:
 				return;
@@ -272,10 +303,25 @@ public:
 		}
 		catch (const std::exception&)
 		{
-			cout << "exception happened!\n";
+			cout << "cusMenu() exception happened!\n";
 			return;
 		}
 	}
+
+	//The following code is responsible for Lin Zeyu
+	void browseCustomers();
+	
+	void addCustomer();
+
+	void modifyCustomer();
+
+	void deleteCustomer();
+
+	void browseSelfInformation(string license_number);
+
+	void check_in();
+
+	void check_out();
 	private:
 		string passWord;
 		ParkingLot parkingLot;
